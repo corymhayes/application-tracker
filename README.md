@@ -45,6 +45,7 @@ Whether you're applying to 5 companies or 50, this tool helps you:
 - **Neon** - Postgres database hosting
 
 ## Project Structure
+```
 src/
 ├── app/              # Main app component and initialization
 ├── components/
@@ -55,3 +56,4 @@ src/
 ├── types/            # TypeScript type definitions
 ├── api/              # Backend routes and handlers
 └── db/               # Database schema and migrations
+```
