@@ -65,7 +65,6 @@ export function ApplicationForm({
 
   const updateMutation = useMutation<Response, Error, ApplicationPayload>({
     mutationFn: async (newApp) => {
-      console.log(newApp);
       return await fetch(`/api/${newApp.id}`, {
         method: "PUT",
         headers: {

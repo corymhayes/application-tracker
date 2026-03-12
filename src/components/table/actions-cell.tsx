@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Row } from "@tanstack/react-table";
 import {
   DropdownMenu,
@@ -6,11 +7,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal } from "lucide-react";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-import { useMutation } from "@tanstack/react-query";
 import type { Application } from "@/types/Application";
+import { DeleteAlert } from "./delete-alert";
+import { PencilSimpleIcon, DotsThreeIcon } from "@phosphor-icons/react";
 
 export function ActionsCell({
   row,
@@ -19,53 +18,28 @@ export function ActionsCell({
   row: Row<Application>;
   onEdit: (application: Application) => void;
 }) {
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: async (id) => {
-      return await fetch(`/api/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(id),
-      });
-    },
-  });
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="size-8">
-          <MoreHorizontal />
+          <DotsThreeIcon weight="bold" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => onEdit(row.original)}>
+          <PencilSimpleIcon size={8} />
           Edit
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={async () => {
-            try {
-              await toast
-                .promise(
-                  mutation.mutateAsync(row.getValue("id")), // pass the promise directly
-                  {
-                    loading: "Deleting...",
-                    success: "Application deleted",
-                    error: "Error",
-                  },
-                )
-                .unwrap();
-
-              await queryClient.invalidateQueries({
-                queryKey: ["applications"],
-              });
-            } catch (err) {
-              console.log(err);
-            }
-          }}
+          variant="destructive"
+          onClick={(e) => e.preventDefault()}
         >
-          Delete
+          <DeleteAlert
+            onClose={() => setIsOpen(false)}
+            rowId={row.getValue("id")}
+          />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
