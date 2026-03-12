@@ -1,29 +1,57 @@
 # Application Tracker
-A full-stack job application tracker built as a TypeScript monorepo. Track applications, monitor their progress through the hiring pipeline, and keep all the details in one place.
+A full-stack job application management tool that helps you track, organize, and monitor your job applications through every stage of the hiring pipeline.
 
+**[Live Demo](#)** | **[Features](#features)** | **[Tech Stack](#tech-stack)** | **[Getting Started](#getting-started)**
 
+![Application Tracker Screenshot](public/screenshot.png)
 
-## Motivation
-This project solves a real problem I have, compiling and tracking work applications, while also being a good exercise in building a data-heavy, full-stack TypeScript application - covering everything from database schema to UI state management.
+## Overview
+Applying for jobs is a numbers game, and keeping track of where you are in each pipeline can be overwhelming. **Application Tracker** consolidates all your job applications in one searchable, sortable dashboard—so you can focus on what matters: landing your next role.
 
-## Tech Stack
-| Layer    | Technology         |
-| -------- | ------------------ |
-| Frontend | React 19, Vite     |
-| Forms    | TanStack Form      |
-| Table    | TanStack Table     |
-| UI       | shadcn/ui Tailwind |
-| Backend  | Hono               |
-| Database | Postgres (Neon)    |
-| ORM      | Drizzle            |
+Whether you're applying to 5 companies or 50, this tool helps you:
+- Track application status from initial submission to offer/rejection
+- Monitor key dates (applied, response received)
+- Organize by company, role, work style, and status
+- Get quick insights with visual status badges and elapsed time counters
 
 ## Features
-- **Add, edit, and delete** job applications
-- **Status tracking** across the full hiring pipeline (Applied -> Offer/Rejected)
-- **Days Elapsed** counter
-- **Sortable columns** for quick organization
+- 🎯 **Full CRUD Operations** - Add, view, edit, and delete job applications
+- 📊 **Status Pipeline** - Track applications through 7 stages: Applied, Recruiter Screen, Technical Interview, Final Interview, Offer, Rejected, Withdrawn
+- 🔍 **Sortable & Searchable** - Sort by any column to quickly find applications
+- ⏱️ **Days Elapsed Counter** - Automatically calculate how long each application has been pending
+- 🎨 **Dark Mode Support** - Toggle between light and dark themes
+- 📱 **Responsive Design** - Works seamlessly on desktop and mobile
+- ⚡ **Real-time Updates** - Changes sync instantly across the app with React Query
+- 🎪 **Polished UX** - Toast notifications, confirmation dialogs, and smooth interactions
 
-## Architecture
-- client/ # React + Vite frontend 
-- server/ # Hono REST API running on Bun 
-- shared/ # Shared TypeScript types for use on both the client and server
+## Tech Stack
+### Frontend
+- **React 19** - Modern UI rendering with Hooks
+- **Vite** - Lightning-fast build tool and dev server
+- **TanStack Form** - Type-safe form management
+- **TanStack Table (React Table)** - Headless table component with sorting and filtering
+- **Tailwind CSS** - Utility-first styling
+- **shadcn/ui** - High-quality, accessible UI components
+- **React Query** - Server state management and data synchronization
+- **Zod** - TypeScript-first schema validation
+
+### Backend
+- **Hono** - Lightweight web framework for Cloudflare Workers
+- **Drizzle ORM** - Type-safe database ORM
+- **PostgreSQL** - Relational database (hosted on Neon)
+
+### Infrastructure
+- **Cloudflare Workers** - Serverless edge computing
+- **Neon** - Postgres database hosting
+
+## Project Structure
+src/
+├── app/              # Main app component and initialization
+├── components/
+│   ├── sidebar/      # Form and application creation UI
+│   ├── table/        # Data table, columns, and actions
+│   └── ui/           # Reusable shadcn/ui components
+├── hooks/            # Custom React hooks
+├── types/            # TypeScript type definitions
+├── api/              # Backend routes and handlers
+└── db/               # Database schema and migrations
