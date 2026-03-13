@@ -17,7 +17,11 @@ export function SidebarLayout({
   onClearSelection,
 }: SidebarLayoutProps) {
   return (
-    <Sidebar side="right" className="flex justify-center">
+    <Sidebar
+      side="right"
+      className="flex justify-center py-4.5 pr-0"
+      variant="floating"
+    >
       <SidebarContent className="p-6">
         <ApplicationForm
           key={selectedApplication?.id ?? "new"}
