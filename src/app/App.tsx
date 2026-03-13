@@ -107,29 +107,33 @@ function App() {
           <div className="flex flex-col w-full gap-5 mt-5">
             <div className="flex justify-evenly gap-5">
               <StatBoxes
-                icon={<FileTextIcon size={16} />}
                 title="Total applications"
                 stat={data.length}
                 lastMonth={30}
-              />
+              >
+                <FileTextIcon size={16} />
+              </StatBoxes>
               <StatBoxes
-                icon={<CalendarDotsIcon size={16} />}
                 title="Total this month"
                 stat={findApplicationsInMonth()}
                 lastMonth={12}
-              />
+              >
+                <CalendarDotsIcon size={16} />
+              </StatBoxes>
               <StatBoxes
-                icon={<SpinnerBallIcon size={16} />}
                 title="In progress"
                 stat={findInProgress()}
                 lastMonth={-10}
-              />
+              >
+                <SpinnerBallIcon size={16} />
+              </StatBoxes>
               <StatBoxes
-                icon={<EnvelopeSimpleOpenIcon size={16} />}
                 title="Response rate"
                 stat={findResponseRate()}
                 lastMonth={42}
-              />
+              >
+                <EnvelopeSimpleOpenIcon size={16} />
+              </StatBoxes>
             </div>
             <ApplicationPipeline />
             <TablePage applications={data} onEdit={handleEdit} />

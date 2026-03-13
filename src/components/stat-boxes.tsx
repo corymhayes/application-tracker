@@ -2,21 +2,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUpIcon, ArrowDownIcon } from "@phosphor-icons/react";
 
 export function StatBoxes({
-  icon,
   title,
   stat,
   lastMonth,
+  children,
 }: {
-  icon: string;
   title: string;
   stat: number;
   lastMonth: number;
+  children: React.ReactNode;
 }) {
   return (
     <Card className="h-32 w-full">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          {icon} {title}
+          {children}
+          {title}
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col justify-between h-full">
