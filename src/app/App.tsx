@@ -6,20 +6,28 @@ import { SidebarLayout } from "@/components/sidebar/layout";
 import { LoadingTable } from "@/components/table/loading";
 import type { Application } from "@/types/Application";
 import { ThemeProvider } from "@/components/theme-provider";
-import { StatBoxes } from "@/components/stat-boxes";
+import { StatBoxes } from "@/components/stats/stat-boxes";
 import {
   SpinnerBallIcon,
   FileTextIcon,
   CalendarDotsIcon,
   EnvelopeSimpleOpenIcon,
 } from "@phosphor-icons/react";
-import { ApplicationPipeline } from "@/components/application-pipeline";
+import { ApplicationPipeline } from "@/components/stats/application-pipeline";
 
 function App() {
-  const { data, status } = useQuery({
+  const { data: data, status: status } = useQuery({
     queryKey: ["applications"],
     queryFn: async () => {
       const res = await fetch("/api");
+      return await res.json();
+    },
+  });
+
+  const { data: stats, status: statsStatus } = useQuery({
+    queryKey: ["stats"],
+    queryFn: async () => {
+      const res = await fetch("/api/stats");
       return await res.json();
     },
   });
@@ -36,58 +44,6 @@ function App() {
     setSelectedApplication(undefined);
   }, []);
 
-  const findApplicationsInMonth = () => {
-    const foundDates = [];
-    const date = new Date();
-    const month = date.getMonth();
-
-    for (const d in data) {
-      const dateSnapshot = new Date(data[d].date_applied);
-      const monthSnapshot = dateSnapshot.getMonth();
-
-      if (monthSnapshot === month) {
-        foundDates.push(d);
-      }
-    }
-
-    return foundDates.length;
-  };
-
-  const findInProgress = () => {
-    const inProgress = [];
-    for (const d in data) {
-      if (
-        data[d].status === "Recruiter Screen" ||
-        data[d].status === "Initial Interview" ||
-        data[d].status === "Technical Interview" ||
-        data[d].status === "Final Interview"
-      ) {
-        inProgress.push(d);
-      }
-    }
-
-    return inProgress.length;
-  };
-
-  const findResponseRate = () => {
-    let totalDays = 0;
-    let daysPassed = 0;
-    const oneDay = 24 * 60 * 60 * 1000;
-
-    for (const d in data) {
-      const applied = new Date(data[d].date_applied);
-
-      if (data[d].date_response) {
-        const response = new Date(data[d].date_response);
-        const milliPassed = Math.abs(response.getTime() - applied.getTime());
-        totalDays += Math.round(milliPassed / oneDay);
-        daysPassed += 1;
-      }
-    }
-
-    return Math.floor((daysPassed / totalDays) * 100);
-  };
-
   return (
     <ThemeProvider>
       <SidebarProvider
@@ -99,9 +55,9 @@ function App() {
         }
         className="px-6"
       >
-        {status === "pending" ? (
+        {status === "pending" || statsStatus === "pending" ? (
           <LoadingTable loadingState="loading" />
-        ) : status === "error" ? (
+        ) : status === "error" || statsStatus === "error" ? (
           <LoadingTable loadingState="error" />
         ) : (
           <div className="flex flex-col w-full gap-5 mt-5">
@@ -115,28 +71,28 @@ function App() {
               </StatBoxes>
               <StatBoxes
                 title="Total this month"
-                stat={findApplicationsInMonth()}
-                lastMonth={12}
+                stat={stats.applications_in_month.numberOfApps}
+                lastMonth={stats.applications_in_month.percentChange}
               >
                 <CalendarDotsIcon size={16} />
               </StatBoxes>
               <StatBoxes
                 title="In progress"
-                stat={findInProgress()}
-                lastMonth={-10}
+                stat={stats.in_progress.inProgress}
+                lastMonth={stats.in_progress.percentChange}
               >
                 <SpinnerBallIcon size={16} />
               </StatBoxes>
               <StatBoxes
                 title="Response rate"
-                stat={findResponseRate()}
-                lastMonth={42}
+                stat={Math.floor(stats.response_rate.currentResponses)}
+                lastMonth={stats.response_rate.percentChange}
                 percentage
               >
                 <EnvelopeSimpleOpenIcon size={16} />
               </StatBoxes>
             </div>
-            <ApplicationPipeline />
+            <ApplicationPipeline status={stats.pipeline} />
             <TablePage applications={data} onEdit={handleEdit} />
           </div>
         )}
