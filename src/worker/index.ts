@@ -9,6 +9,15 @@ import type { Application } from "../types/Application";
 import { deleteApplication } from "./db/queries/delete";
 import { updateApplication } from "./db/queries/update";
 
+import {
+  findApplicationsInMonth,
+  findInProgress,
+  findResponseRate,
+  getCurrentMonth,
+  getPreviousMonth,
+  pipelineValues,
+} from "./utils/stats";
+
 const applicationSchema = z.object({
   id: z.uuid().optional(),
   company: z.string().max(100),
@@ -85,6 +94,25 @@ app.delete("/api/:id", async (c) => {
   await deleteApplication(id);
 
   return c.json("", { status: 200 });
+});
+
+app.get("/api/stats", async (c) => {
+  const results = await db.select().from(applicationTable);
+  const applications: Application[] = results.map((app) => ({
+    ...app,
+    date_applied: app.date_applied?.toISOString() ?? null,
+    date_response: app.date_response?.toISOString() ?? null,
+  }));
+
+  const currentMonth = getCurrentMonth(applications);
+  const previousMonth = getPreviousMonth(applications);
+
+  return c.json({
+    applications_in_month: findApplicationsInMonth(currentMonth, previousMonth),
+    in_progress: findInProgress(currentMonth, previousMonth),
+    response_rate: findResponseRate(currentMonth, previousMonth),
+    pipeline: pipelineValues(applications),
+  });
 });
 
 export default app;

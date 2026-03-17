@@ -17,7 +17,7 @@ export function TablePage({ applications, onEdit }: TablePageProps) {
         <CardTitle>Applications table</CardTitle>
       </CardHeader>
       <CardContent>
-        <DataTable columns={columns} data={applications} />;
+        <DataTable columns={columns} data={applications} />
       </CardContent>
     </Card>
   );
