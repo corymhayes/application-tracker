@@ -14,7 +14,7 @@ function calculatePercentageChange(curr: number, prev: number) {
 }
 
 export function getCurrentMonth(data: Application[]) {
-  const foundMonths = [];
+  const foundMonths: Application[] = [];
   const now = new Date();
   const currentMonth = now.getMonth();
   const currentYear = now.getFullYear();
@@ -33,7 +33,7 @@ export function getCurrentMonth(data: Application[]) {
 }
 
 export function getPreviousMonth(data: Application[]) {
-  const foundMonths = [];
+  const foundMonths: Application[] = [];
   const now = new Date();
   const prev = new Date(now.getFullYear(), now.getMonth() - 1, 1);
   const prevMonth = prev.getMonth();
