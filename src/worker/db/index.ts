@@ -1,7 +1,9 @@
-import { drizzle } from "drizzle-orm/neon-http";
+import { drizzle } from "drizzle-orm/node-postgres";
 
-// export const db = drizzle(process.env.DATABASE_URL!);
-
-export function createDb(env) {
-  return drizzle(env);
+export function createDB(env: string) {
+  return drizzle({
+    connection: {
+      connectionString: env,
+    },
+  });
 }
