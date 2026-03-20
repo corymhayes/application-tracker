@@ -1,8 +1,8 @@
-import { createDb } from "../";
+import { createDB } from "..";
 import { applicationTable } from "../schema";
 
-export async function getAllApplications(env) {
-  const db = createDb(env);
+export async function getAllApplications(env: string) {
+  const db = createDB(env);
   return db
     .select()
     .from(applicationTable)

@@ -6,7 +6,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "application-tracker",
   "main": "./src/worker/index.ts",
-  "compatibility_date": "2025-10-08",
+  "compatibility_date": "2026-03-19",
   "compatibility_flags": ["nodejs_compat"],
   "observability": {
     "enabled": true,
@@ -16,11 +16,10 @@
     "directory": "./dist/client",
     "not_found_handling": "single-page-application",
   },
-  "secrets_store_secrets": [
+  "hyperdrive": [
     {
-      "binding": "DB_URL",
-      "store_id": "7f34c44a845b4671a6e140243cf91eeb",
-      "secret_name": "DATABASE_URL",
+      "binding": "HYPERDRIVE",
+      "id": "3f433b8d0672401d96fa715a4d521b21",
     },
   ],
 }
