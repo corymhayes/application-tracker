@@ -7,6 +7,8 @@ import { LoadingTable } from "@/components/table/loading";
 import type { Application } from "@/applicationSchema";
 import { ThemeProvider } from "@/components/theme-provider";
 import { StatBoxes } from "@/components/stats/stat-boxes";
+import { LoadingStats } from "@/components/stats/loading";
+import { ApplicationPipelineLoading } from "@/components/stats/application-pipeline-loading";
 import {
   SpinnerBallIcon,
   FileTextIcon,
@@ -56,7 +58,24 @@ function App() {
         className="px-6"
       >
         {status === "pending" || statsStatus === "pending" ? (
-          <LoadingTable loadingState="loading" />
+          <div className="flex flex-col w-full gap-5 mt-5">
+            <div className="flex justify-evenly gap-5">
+              <LoadingStats title="Total this month">
+                <CalendarDotsIcon size={16} />
+              </LoadingStats>
+              <LoadingStats title="In progress">
+                <SpinnerBallIcon size={16} />
+              </LoadingStats>
+              <LoadingStats title="Response rate">
+                <EnvelopeSimpleOpenIcon size={16} />
+              </LoadingStats>
+              <LoadingStats title="Total applications">
+                <FileTextIcon size={16} />
+              </LoadingStats>
+            </div>
+            <ApplicationPipelineLoading />
+            <LoadingTable loadingState="loading" />
+          </div>
         ) : status === "error" || statsStatus === "error" ? (
           <LoadingTable loadingState="error" />
         ) : (
@@ -68,7 +87,7 @@ function App() {
                 lastMonth={stats.applications_in_month.percentChange}
                 showChange
               >
-                <CalendarDotsIcon size={16} />
+                <CalendarDotsIcon size={16} weight="fill" />
               </StatBoxes>
               <StatBoxes
                 title="In progress"
@@ -76,7 +95,7 @@ function App() {
                 lastMonth={stats.in_progress.percentChange}
                 showChange
               >
-                <SpinnerBallIcon size={16} />
+                <SpinnerBallIcon size={16} weight="fill" />
               </StatBoxes>
               <StatBoxes
                 title="Response rate"
@@ -85,10 +104,10 @@ function App() {
                 percentage
                 showChange
               >
-                <EnvelopeSimpleOpenIcon size={16} />
+                <EnvelopeSimpleOpenIcon size={16} weight="fill" />
               </StatBoxes>
               <StatBoxes title="Total applications" stat={data.length}>
-                <FileTextIcon size={16} />
+                <FileTextIcon size={16} weight="fill" />
               </StatBoxes>
             </div>
             <ApplicationPipeline status={stats.pipeline} />

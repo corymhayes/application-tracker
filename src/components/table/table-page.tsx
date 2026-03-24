@@ -4,6 +4,7 @@ import { createColumns } from "./columns";
 import { DataTable } from "./data-table";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import type { Application } from "@/applicationSchema";
+import { TableIcon } from "@phosphor-icons/react";
 
 interface TablePageProps {
   applications: Application[];
@@ -15,7 +16,10 @@ export function TablePage({ applications, onEdit }: TablePageProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Applications table</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <TableIcon size={16} weight="fill" />
+          Applications table
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <DataTable columns={columns} data={applications} />
