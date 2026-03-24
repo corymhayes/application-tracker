@@ -2,13 +2,16 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ApplicationPipelineValue } from "./application-pipeline-value";
 import { ApplicationPipelineGraph } from "./application-pipeline-graph";
 import type { Pipeline } from "@/types/Pipeline";
+import { ChartBarHorizontalIcon } from "@phosphor-icons/react";
 
 export function ApplicationPipeline({ status }: { status: Pipeline[] }) {
-  console.log(status);
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Applications pipeline</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <ChartBarHorizontalIcon size={16} weight="fill" />
+          Applications pipeline
+        </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col">
         <div className="w-full h-6 flex mt-2 mb-8">
