@@ -5,17 +5,18 @@ import {
 } from "@/components/ui/sidebar";
 import { ApplicationForm } from "./application-form";
 import { UserInfo } from "./user-info";
-// import type { Application } from "@/types/Application";
 import type { Application } from "@/applicationSchema";
 
 interface SidebarLayoutProps {
   selectedApplication?: Application;
   onClearSelection?: () => void;
+  userData;
 }
 
 export function SidebarLayout({
   selectedApplication,
   onClearSelection,
+  userData,
 }: SidebarLayoutProps) {
   return (
     <Sidebar side="right" className="flex justify-center" variant="sidebar">
@@ -26,8 +27,8 @@ export function SidebarLayout({
           onClearSelection={onClearSelection}
         />
       </SidebarContent>
-      <SidebarFooter className="flex flex-row justify-between items-center p-2 mb-1">
-        <UserInfo />
+      <SidebarFooter className="flex flex-row justify-between items-center p-6">
+        <UserInfo userData={userData} />
       </SidebarFooter>
     </Sidebar>
   );

@@ -10,6 +10,7 @@ export const applicationSchema = z.object({
   application_url: z.string().nullish(),
   date_applied: z.coerce.date(),
   date_response: z.coerce.date().nullish(),
+  user_id: z.uuid().optional(),
 });
 
 export const applicationFormSchema = z.object({
@@ -21,6 +22,7 @@ export const applicationFormSchema = z.object({
   application_url: z.string().nullish(),
   date_applied: z.date(),
   date_response: z.date().nullish(),
+  user_id: z.uuid().optional(),
 });
 
 export const applicationPayloadSchema = z.object({
@@ -32,6 +34,7 @@ export const applicationPayloadSchema = z.object({
   application_url: z.string().optional(),
   date_applied: z.string(), // ISO date string
   date_response: z.string().nullable(),
+  user_id: z.uuid().optional(),
 });
 
 export type Application = z.infer<typeof applicationSchema>;

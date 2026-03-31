@@ -9,4 +9,5 @@ export type Application = {
   application_url: string | null;
   date_applied: string;
   date_response: string | null;
+  user_id: string;
 };

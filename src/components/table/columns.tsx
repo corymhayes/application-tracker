@@ -1,4 +1,4 @@
-import { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { StatusBadge } from "@/components/table/status-badge";
 import { ActionsCell } from "./actions-cell";
 import { SortableHeader } from "./sortable-header";
@@ -9,6 +9,9 @@ export const createColumns = (
 ): ColumnDef<Application>[] => [
   {
     accessorKey: "id",
+  },
+  {
+    accessorKey: "user_id",
   },
   {
     accessorKey: "status",
@@ -40,6 +43,7 @@ export const createColumns = (
           href={`${row.getValue("application_url")}`}
           className="hover:underline underline-offset-6"
           target="_blank"
+          rel="noopener"
         >
           Link
         </a>

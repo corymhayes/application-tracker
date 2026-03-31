@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import {
-  ColumnDef,
+  type ColumnDef,
   type SortingState,
   flexRender,
   getCoreRowModel,
@@ -37,6 +37,7 @@ export function DataTable<TData, TValue>({
     initialState: {
       columnVisibility: {
         id: false,
+        user_id: false,
       },
     },
     state: {

@@ -18,6 +18,7 @@ import {
   type ApplicationPayload,
   applicationFormSchema,
 } from "@/applicationSchema";
+import { api } from "@/lib/api";
 
 interface ApplicationFormProps {
   application?: Application;
@@ -33,11 +34,8 @@ export function ApplicationForm({
 
   const insertMutation = useMutation<Response, Error, ApplicationPayload>({
     mutationFn: async (newApp) => {
-      return await fetch("/api", {
+      return api.request("/api", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(newApp),
       });
     },
@@ -45,12 +43,8 @@ export function ApplicationForm({
 
   const updateMutation = useMutation<Response, Error, ApplicationPayload>({
     mutationFn: async (newApp) => {
-      console.log(newApp);
-      return await fetch(`/api/${newApp.id}`, {
+      return api.request(`/api/${newApp.id}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(newApp),
       });
     },
@@ -70,6 +64,7 @@ export function ApplicationForm({
         date_response: application.date_response
           ? new Date(application.date_response)
           : undefined,
+        user_id: application.user_id,
       }
     : {
         company: "",
@@ -96,6 +91,7 @@ export function ApplicationForm({
         date_response: value.date_response
           ? value.date_response.toISOString().split("T")[0]
           : null,
+        user_id: value.user_id,
       };
 
       try {
