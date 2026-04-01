@@ -1,11 +1,12 @@
 import { Hono, type Next, type Context } from "hono";
-import { validator } from "hono/validator";
-import * as z from "zod";
-import { type Application, applicationSchema } from "../applicationSchema";
+// import { validator } from "hono/validator";
+// import * as z from "zod";
+// import { type Application, applicationSchema } from "../applicationSchema";
+import { type Application } from "../applicationSchema";
 import { getAllApplications } from "./db/queries/select";
-import { insertApplication } from "./db/queries/insert";
-import { deleteApplication } from "./db/queries/delete";
-import { updateApplication } from "./db/queries/update";
+// import { insertApplication } from "./db/queries/insert";
+// import { deleteApplication } from "./db/queries/delete";
+// import { updateApplication } from "./db/queries/update";
 // import {
 //   findApplicationsInMonth,
 //   findInProgress,
@@ -70,64 +71,64 @@ app.get("/api", authMiddleware, async (c: Context) => {
   return c.json(data);
 });
 
-app.post(
-  "/api",
-  validator("json", (value, c) => {
-    const result = applicationSchema.safeParse(value);
-    if (!result.success) {
-      return c.json({ error: result.error }, 400);
-    }
-    return result.data;
-  }),
-  authMiddleware,
-  async (c) => {
-    const user_id = c.get("userId");
-    const data = c.req.valid("json");
-    const res = { ...data, user_id };
-    await insertApplication(c.env.HYPERDRIVE.connectionString, res);
-    return c.json("", { status: 200 });
-  },
-);
+// app.post(
+//   "/api",
+//   validator("json", (value, c) => {
+//     const result = applicationSchema.safeParse(value);
+//     if (!result.success) {
+//       return c.json({ error: result.error }, 400);
+//     }
+//     return result.data;
+//   }),
+//   authMiddleware,
+//   async (c) => {
+//     const user_id = c.get("userId");
+//     const data = c.req.valid("json");
+//     const res = { ...data, user_id };
+//     await insertApplication(c.env.HYPERDRIVE.connectionString, res);
+//     return c.json("", { status: 200 });
+//   },
+// );
 
-app.put(
-  "/api/:id",
-  validator("param", (value, c) => {
-    const schema = z.object({ id: z.uuid() });
-    const result = schema.safeParse(value);
+// app.put(
+//   "/api/:id",
+//   validator("param", (value, c) => {
+//     const schema = z.object({ id: z.uuid() });
+//     const result = schema.safeParse(value);
 
-    if (!result.success) {
-      return c.json({ error: result.error }, 400);
-    }
+//     if (!result.success) {
+//       return c.json({ error: result.error }, 400);
+//     }
 
-    return result.data;
-  }),
-  validator("json", (value, c) => {
-    const result = applicationSchema.safeParse(value);
-    if (!result.success) {
-      return c.json({ error: result.error }, 400);
-    }
+//     return result.data;
+//   }),
+//   validator("json", (value, c) => {
+//     const result = applicationSchema.safeParse(value);
+//     if (!result.success) {
+//       return c.json({ error: result.error }, 400);
+//     }
 
-    return result.data;
-  }),
-  authMiddleware,
-  async (c) => {
-    const id = c.req.valid("param");
-    const data = c.req.valid("json");
-    const user_id = c.get("userId");
-    const res = { ...data, user_id };
+//     return result.data;
+//   }),
+//   authMiddleware,
+//   async (c) => {
+//     const id = c.req.valid("param");
+//     const data = c.req.valid("json");
+//     const user_id = c.get("userId");
+//     const res = { ...data, user_id };
 
-    await updateApplication(c.env.HYPERDRIVE.connectionString, id.id, res);
+//     await updateApplication(c.env.HYPERDRIVE.connectionString, id.id, res);
 
-    return c.json("", { status: 200 });
-  },
-);
+//     return c.json("", { status: 200 });
+//   },
+// );
 
-app.delete("/api/:id", authMiddleware, async (c) => {
-  const id = c.req.param("id");
-  await deleteApplication(c.env.HYPERDRIVE.connectionString, id);
+// app.delete("/api/:id", authMiddleware, async (c) => {
+//   const id = c.req.param("id");
+//   await deleteApplication(c.env.HYPERDRIVE.connectionString, id);
 
-  return c.json("", { status: 200 });
-});
+//   return c.json("", { status: 200 });
+// });
 
 // app.get("/api/stats", authMiddleware, async (c) => {
 //   const user_id = c.get("userId");
