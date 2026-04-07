@@ -22,7 +22,6 @@ export const api = {
     });
 
     if (!response.ok) throw new Error("API Request Failed");
-
     return response.json();
   },
 };

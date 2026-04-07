@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PlaygroundIndexRouteImport } from './routes/playground/index'
 import { Route as AppIndexRouteImport } from './routes/app/index'
-import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
 import { Route as AuthResetPasswordRouteImport } from './routes/auth/reset-password'
 
 const IndexRoute = IndexRouteImport.update({
@@ -30,11 +29,6 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/app/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthSignInRoute = AuthSignInRouteImport.update({
-  id: '/auth/sign-in',
-  path: '/auth/sign-in',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthResetPasswordRoute = AuthResetPasswordRouteImport.update({
   id: '/auth/reset-password',
   path: '/auth/reset-password',
@@ -44,14 +38,12 @@ const AuthResetPasswordRoute = AuthResetPasswordRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
-  '/auth/sign-in': typeof AuthSignInRoute
   '/app/': typeof AppIndexRoute
   '/playground/': typeof PlaygroundIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
-  '/auth/sign-in': typeof AuthSignInRoute
   '/app': typeof AppIndexRoute
   '/playground': typeof PlaygroundIndexRoute
 }
@@ -59,33 +51,20 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
-  '/auth/sign-in': typeof AuthSignInRoute
   '/app/': typeof AppIndexRoute
   '/playground/': typeof PlaygroundIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/auth/reset-password'
-    | '/auth/sign-in'
-    | '/app/'
-    | '/playground/'
+  fullPaths: '/' | '/auth/reset-password' | '/app/' | '/playground/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/reset-password' | '/auth/sign-in' | '/app' | '/playground'
-  id:
-    | '__root__'
-    | '/'
-    | '/auth/reset-password'
-    | '/auth/sign-in'
-    | '/app/'
-    | '/playground/'
+  to: '/' | '/auth/reset-password' | '/app' | '/playground'
+  id: '__root__' | '/' | '/auth/reset-password' | '/app/' | '/playground/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthResetPasswordRoute: typeof AuthResetPasswordRoute
-  AuthSignInRoute: typeof AuthSignInRoute
   AppIndexRoute: typeof AppIndexRoute
   PlaygroundIndexRoute: typeof PlaygroundIndexRoute
 }
@@ -113,13 +92,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/sign-in': {
-      id: '/auth/sign-in'
-      path: '/auth/sign-in'
-      fullPath: '/auth/sign-in'
-      preLoaderRoute: typeof AuthSignInRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/auth/reset-password': {
       id: '/auth/reset-password'
       path: '/auth/reset-password'
@@ -133,7 +105,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthResetPasswordRoute: AuthResetPasswordRoute,
-  AuthSignInRoute: AuthSignInRoute,
   AppIndexRoute: AppIndexRoute,
   PlaygroundIndexRoute: PlaygroundIndexRoute,
 }

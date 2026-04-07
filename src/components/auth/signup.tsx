@@ -1,4 +1,5 @@
 import { GithubLogoIcon } from "@phosphor-icons/react";
+import { useNavigate } from "@tanstack/react-router";
 import { type FormEvent, type ReactNode, useState } from "react";
 import { authClient } from "../../worker/auth";
 import { Button } from "../ui/button";
@@ -11,32 +12,33 @@ import {
 } from "../ui/card";
 import { Field, FieldGroup, FieldLabel, FieldSeparator } from "../ui/field";
 import { Input } from "../ui/input";
-import OneTime from "./one-time";
-import { toast } from "sonner";
 
 interface SignupProps {
   children?: ReactNode;
 }
 function Signup({ children }: SignupProps) {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [openOneTime, setOpenOneTime] = useState(false);
 
-  const handleSignup = async (e: FormEvent) => {
+  const handleSignin = async (e: FormEvent) => {
     e.preventDefault();
-    e.stopPropagation();
-    const name = `${firstName} ${lastName}`;
 
-    const { data } = await authClient.signUp.email({
+    const { data, error } = await authClient.signIn.email({
       email,
       password,
-      name,
     });
 
     if (data?.user) {
-      setOpenOneTime(true);
+      navigate({
+        to: "/app",
+      });
+    }
+
+    if (error) {
+      console.log(error);
     }
   };
 
@@ -48,8 +50,8 @@ function Signup({ children }: SignupProps) {
         provider: "github",
         callbackURL: "/app",
       });
-    } catch {
-      toast.error("Unable to sign up with Github");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -57,7 +59,7 @@ function Signup({ children }: SignupProps) {
     <div className="flex flex-col gap-6 w-96">
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome!</CardTitle>
+          <CardTitle className="text-xl">Welcome</CardTitle>
           <CardDescription>
             Sign up with your Google or Github account
           </CardDescription>
@@ -73,7 +75,7 @@ function Signup({ children }: SignupProps) {
               </Field>
             </FieldGroup>
           </form>
-          <form onSubmit={(e) => handleSignup(e)}>
+          <form onSubmit={(e) => handleSignin(e)}>
             <FieldGroup>
               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                 Or continue with
@@ -118,14 +120,13 @@ function Signup({ children }: SignupProps) {
                 />
               </Field>
               <Field className="flex flex-col gap-4">
-                <Button type="submit">Sign up</Button>
+                <Button type="submit">Login</Button>
                 {children}
               </Field>
             </FieldGroup>
           </form>
         </CardContent>
       </Card>
-      <OneTime open={openOneTime} setOpen={setOpenOneTime} email={email} />
     </div>
   );
 }

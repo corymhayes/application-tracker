@@ -12,23 +12,19 @@ import {
 import { Field, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { authClient } from "../../worker/auth";
-import { toast } from "sonner";
 
 export default function ForgotPassword() {
-  const [rp_email, setRPEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  const handlePassword = async (e: React.FormEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
+  const handlePassword = async () => {
     const { error } = await authClient.requestPasswordReset({
-      email: rp_email,
+      email,
       redirectTo: "http://localhost:5173/auth/reset-password",
     });
 
     if (error) {
-      toast.error(error.message);
+      console.log(error.message);
     } else {
       setIsOpen(false);
     }
@@ -50,18 +46,15 @@ export default function ForgotPassword() {
             reset your password will be sent.
           </DialogDescription>
         </DialogHeader>
-        <form
-          onSubmit={(e) => handlePassword(e)}
-          className="flex flex-col gap-7"
-        >
+        <form onSubmit={handlePassword} className="flex flex-col gap-5">
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor="rp_email">Email</FieldLabel>
+              <FieldLabel htmlFor="email">Email</FieldLabel>
               <Input
                 type="email"
                 placeholder="m@example.com"
-                value={rp_email}
-                onChange={(e) => setRPEmail(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </Field>

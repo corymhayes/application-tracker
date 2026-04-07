@@ -13,7 +13,6 @@ import {
 import { Field, FieldGroup, FieldLabel, FieldSeparator } from "../ui/field";
 import { Input } from "../ui/input";
 import ForgotPassword from "./forgot-password";
-import { toast } from "sonner";
 
 interface SigninProps {
   children?: ReactNode;
@@ -27,19 +26,19 @@ function Signin({ children }: SigninProps) {
   const handleSignin = async (e: FormEvent) => {
     e.preventDefault();
 
-    try {
-      const { data } = await authClient.signIn.email({
-        email,
-        password,
-      });
+    const { data, error } = await authClient.signIn.email({
+      email,
+      password,
+    });
 
-      if (data?.user) {
-        navigate({
-          to: "/app",
-        });
-      }
-    } catch {
-      toast.error("Unable to sign in");
+    if (data?.user) {
+      navigate({
+        to: "/app",
+      });
+    }
+
+    if (error) {
+      console.log(error);
     }
   };
 
@@ -51,8 +50,8 @@ function Signin({ children }: SigninProps) {
         provider: "github",
         callbackURL: "/app",
       });
-    } catch {
-      toast.error("Unable to sign in with Github");
+    } catch (error) {
+      console.log(error);
     }
   };
 

@@ -42,7 +42,7 @@ export function UserInfo({ userData }: { userData: User }) {
       <DropdownMenuContent align="start" className="max-w-48 mb-2">
         <ModeToggle />
         <DropdownMenuItem onClick={(e) => handleSignout(e)}>
-          Sign out
+          Signout
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
