@@ -41,6 +41,11 @@ export function ApplicationForm({
         body: JSON.stringify(newApp),
       });
     },
+    onError: (error) => {
+      toast.error(
+        error instanceof Error ? error.message : "Failed to save application"
+      );
+    },
   });
 
   const updateMutation = useMutation<Response, Error, ApplicationPayload>({
@@ -49,6 +54,11 @@ export function ApplicationForm({
         method: "PUT",
         body: JSON.stringify(newApp),
       });
+    },
+    onError: (error) => {
+      toast.error(
+        error instanceof Error ? error.message : "Failed to updated application"
+      );
     },
   });
 

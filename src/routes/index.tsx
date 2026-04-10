@@ -7,15 +7,15 @@ import { authClient } from "@/worker/auth";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useState } from "react";
 
-const requiredEnvs = [
-  "VITE_NEON_AUTH_URL",
-  "CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING",
-];
-requiredEnvs.forEach((key) => {
-  if (!import.meta.env[key]) {
-    console.error(`Missing required environment variable: ${key}`);
-  }
-});
+// const requiredEnvs = [
+//   "VITE_NEON_AUTH_URL",
+//   "CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE",
+// ];
+// requiredEnvs.forEach((key) => {
+//   if (!import.meta.env[key]) {
+//     console.error(`Missing required environment variable: ${key}`);
+//   }
+// });
 
 export const Route = createFileRoute("/")({
   component: Home,

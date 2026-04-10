@@ -51,6 +51,18 @@ const authMiddleware = async (
   }
 };
 
+app.onError((err, c) => {
+  if (err.message.includes('Unauthorized')) {
+    return c.json({ error: 'Unauthorized' }, 401);
+  }
+
+  if (err instanceof z.ZodError) {
+    return c.json({ error: 'Validation failed', issues: err.issues }, 400);
+  }
+
+  return c.json({ error: 'Internal server error' }, 500);
+});
+
 app.get("/api", authMiddleware, async (c: Context) => {
   const user_id = c.get("userId");
   const results = await getAllApplications(c, user_id);

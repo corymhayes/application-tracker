@@ -162,9 +162,7 @@ function AppContent() {
 function App() {
   return (
     <ErrorBoundary>
-      <QueryErrorResetBoundary>
-        {({ reset }) => <AppContent />}
-      </QueryErrorResetBoundary>
+      <QueryErrorResetBoundary>{() => <AppContent />}</QueryErrorResetBoundary>
     </ErrorBoundary>
   );
 }
