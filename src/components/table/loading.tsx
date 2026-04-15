@@ -10,7 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function LoadingTable({ loadingState }: { loadingState: string }) {
   return (
-    <Table>
+    <Table className="h-full">
       <TableHeader>
         <TableRow className="h-14">
           <TableHead>Status</TableHead>
@@ -56,12 +56,7 @@ export function LoadingTable({ loadingState }: { loadingState: string }) {
         </TableBody>
       ) : (
         <TableBody>
-          <TableRow className="h-14 border-0">
-            <TableCell colSpan={100} align="center">
-              Unable to load applications
-            </TableCell>
-          </TableRow>
-          <TableRow className="h-14">
+          <TableRow className="h-14 hover:bg-background">
             <TableCell className="w-[8%]"></TableCell>
             <TableCell className="w-[21%]"></TableCell>
             <TableCell className="w-[16%]"></TableCell>

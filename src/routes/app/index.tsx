@@ -16,6 +16,7 @@ import {
   EnvelopeSimpleOpenIcon,
   FileTextIcon,
   SpinnerBallIcon,
+  WarningIcon,
 } from "@phosphor-icons/react";
 import { QueryErrorResetBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
@@ -23,6 +24,7 @@ import { type CSSProperties, useCallback, useEffect, useState } from "react";
 import type { User } from "@/types/User";
 import { DashboardErrorBoundary } from "@/components/dashboard-error-boundary";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { SiteMark } from "@/components/branding/site-mark";
 
 export const Route = createFileRoute("/app/")({
   component: App,
@@ -44,6 +46,11 @@ function AppContent() {
     queryKey: ["applications"],
     queryFn: async () => {
       const { data } = await api.request("/api");
+
+      if (!data || !Array.isArray(data)) {
+        throw new Error("Invalid applications data received");
+      }
+
       return data;
     },
   });
@@ -52,6 +59,11 @@ function AppContent() {
     queryKey: ["stats"],
     queryFn: async () => {
       const { stats } = await api.request("/api/stats");
+
+      if (!stats) {
+        throw new Error("Invalid applications data received");
+      }
+
       return stats;
     },
   });
@@ -70,8 +82,12 @@ function AppContent() {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data } = await authClient.getSession();
-      setUserData(data?.user);
+      try {
+        const { data } = await authClient.getSession();
+        setUserData(data?.user);
+      } catch (err) {
+        console.error("Failed to load user data: ", err);
+      }
     };
 
     getUser();
@@ -79,20 +95,26 @@ function AppContent() {
 
   return (
     <DashboardErrorBoundary>
+      <SiteMark />
       <SignedIn>
         <ThemeProvider>
           <SidebarProvider
             style={
               {
-                "--sidebar-width": "20rem",
+                "--sidebar-width": "16rem",
                 "--sidebar-width-mobile": "20rem",
               } as CSSProperties
             }
-            className="px-6"
+            className="flex items-center justify-center"
           >
+            <SidebarLayout
+              selectedApplication={selectedApplication}
+              onClearSelection={handleClearSelection}
+              userData={userData}
+            />
             {status === "pending" || statsStatus === "pending" ? (
-              <div className="flex flex-col w-full gap-5 mt-5">
-                <div className="flex justify-evenly gap-5">
+              <div className="flex flex-col w-full gap-3 mt-4 px-3 self-start">
+                <div className="flex justify-evenly gap-3">
                   <LoadingStats title="Total this month">
                     <CalendarDotsIcon size={16} />
                   </LoadingStats>
@@ -110,10 +132,18 @@ function AppContent() {
                 <LoadingTable loadingState="loading" />
               </div>
             ) : status === "error" || statsStatus === "error" ? (
-              <LoadingTable loadingState="error" />
+              <div className="flex items-center justify-center gap-3">
+                <WarningIcon weight="fill" size={32} />
+                <div className="bg-white/10 w-px h-10"></div>
+                <p className="text-sm">
+                  Unable to load data
+                  <br />
+                  Please refresh to try again
+                </p>
+              </div>
             ) : (
-              <div className="flex flex-col w-full gap-5 mt-5">
-                <div className="flex justify-evenly gap-5">
+              <div className="flex flex-col w-full gap-3 mt-4 px-3 self-start">
+                <div className="flex justify-evenly gap-3">
                   <StatBoxes
                     title="Total this month"
                     stat={stats.applications_in_month.numberOfApps}
@@ -147,11 +177,6 @@ function AppContent() {
                 <TablePage applications={data} onEdit={handleEdit} />
               </div>
             )}
-            <SidebarLayout
-              selectedApplication={selectedApplication}
-              onClearSelection={handleClearSelection}
-              userData={userData}
-            />
           </SidebarProvider>
         </ThemeProvider>
       </SignedIn>

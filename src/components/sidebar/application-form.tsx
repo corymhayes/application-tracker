@@ -1,9 +1,4 @@
-import {
-  Field,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-} from "@/components/ui/field";
+import { Field, FieldGroup, FieldSet } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/form-context";
 import { Button } from "@/components/ui/button";
 import { FormFieldSelect } from "./form-field-select";
@@ -144,9 +139,9 @@ export function ApplicationForm({
       }}
     >
       <FieldSet>
-        <FieldLegend className="mb-8">
+        {/*<FieldLegend className="mb-8">
           {isEditing ? "Edit Application" : "New Application"}
-        </FieldLegend>
+        </FieldLegend>*/}
         <FieldGroup>
           <form.AppField name="status">
             {() => (

@@ -202,3 +202,7 @@ dist
 # AI Checklist
 
 PORTFOLIO_READINESS.md
+claude/
+README_ENHANCED.md
+README_ENHANCED_REWORK.MD
+wrangler.jsonc

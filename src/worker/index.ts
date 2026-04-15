@@ -11,11 +11,7 @@ import { calculateAllStats } from "./utils/stats";
 
 type AppVariables = { userId: string };
 
-type Env = {
-  HYPERDRIVE: Hyperdrive;
-};
-
-const app = new Hono<{ Bindings: Env }>();
+const app = new Hono();
 
 if (!import.meta.env.VITE_NEON_AUTH_URL) {
   console.error("URL not set")
@@ -51,6 +47,10 @@ const authMiddleware = async (
   }
 };
 
+/**
+ * Error Handler
+ */
+
 app.onError((err, c) => {
   if (err.message.includes('Unauthorized')) {
     return c.json({ error: 'Unauthorized' }, 401);
@@ -63,6 +63,10 @@ app.onError((err, c) => {
   return c.json({ error: 'Internal server error' }, 500);
 });
 
+
+/**
+ * GET OPERATIONS
+ */
 app.get("/api", authMiddleware, async (c: Context) => {
   const user_id = c.get("userId");
   const results = await getAllApplications(c, user_id);
@@ -72,10 +76,26 @@ app.get("/api", authMiddleware, async (c: Context) => {
     user_id: app.user_id ?? undefined,
   }));
 
-  return c.json({ data }, 200);
+  return c.json({ ok: true, data }, 200);
 });
 
+app.get("/api/stats", authMiddleware, async (c) => {
+  const user_id = c.get("userId");
+  const results = await getAllApplications(c, user_id);
 
+  const data: Application[] = results.map((app) => ({
+    ...app,
+    user_id: app.user_id ?? undefined,
+  }));
+
+  const stats = calculateAllStats(data);
+
+  return c.json({ ok: true, stats }, 200);
+});
+
+/**
+ * POST OPERATIONS
+ */
 app.post(
   "/api",
   validator("json", (value, c) => {
@@ -91,11 +111,14 @@ app.post(
     const data = c.req.valid("json");
     const res = { ...data, user_id };
     await insertApplication(c, res);
-    return c.json({ success: true }, 200);
+
+    return c.json({ ok: true }, 200);
   }
 );
 
-
+/**
+ * UPDATE OPERATIONS
+ */
 app.put(
   "/api/:id",
   validator("param", (value, c) => {
@@ -125,11 +148,13 @@ app.put(
 
     await updateApplication(c, id.id, res, user_id);
 
-    return c.json({ success: true }, 200);
+    return c.json({ ok: true }, 200);
   }
 );
 
-
+/**
+ * DELETE OPERATIONS
+ */
 app.delete(
   "/api/:id",
   validator("param", (value, c) => {
@@ -148,22 +173,8 @@ app.delete(
     const id = c.req.param("id");
     await deleteApplication(c, id, userId);
 
-    return c.json({ success: true }, 200);
+    return c.json({ ok: true }, 200);
   }
 );
 
-
-app.get("/api/stats", authMiddleware, async (c) => {
-  const user_id = c.get("userId");
-  const results = await getAllApplications(c, user_id);
-
-  const data: Application[] = results.map((app) => ({
-    ...app,
-    user_id: app.user_id ?? undefined,
-  }));
-
-  const stats = calculateAllStats(data);
-
-  return c.json({ stats }, 200);
-});
 export default app;

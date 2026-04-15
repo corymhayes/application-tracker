@@ -11,9 +11,11 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Field, FieldGroup, FieldLabel, FieldSeparator } from "../ui/field";
+import { Spinner } from "../ui/spinner";
 import { Input } from "../ui/input";
 import ForgotPassword from "./forgot-password";
 import { toast } from "sonner";
+import { SiteMark } from "../branding/site-mark";
 
 interface SigninProps {
   children?: ReactNode;
@@ -23,10 +25,13 @@ function Signin({ children }: SigninProps) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSignin = async (e: FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
 
+    setLoading(true);
     try {
       const { data } = await authClient.signIn.email({
         email,
@@ -34,6 +39,7 @@ function Signin({ children }: SigninProps) {
       });
 
       if (data?.user) {
+        setLoading(false);
         navigate({
           to: "/app",
         });
@@ -57,8 +63,9 @@ function Signin({ children }: SigninProps) {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-96">
-      <Card>
+    <div className="flex flex-col gap-6 w-full items-center justify-center">
+      <SiteMark />
+      <Card className="bg-background ring-0 w-96">
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome</CardTitle>
           <CardDescription>
@@ -78,7 +85,7 @@ function Signin({ children }: SigninProps) {
           </form>
           <form onSubmit={(e) => handleSignin(e)}>
             <FieldGroup>
-              <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
+              <FieldSeparator className="*:data-[slot=field-separator-content]:bg-background pt-0.5">
                 Or continue with
               </FieldSeparator>
               <Field>
@@ -104,7 +111,7 @@ function Signin({ children }: SigninProps) {
                 </div>
               </Field>
               <Field className="flex flex-col gap-4">
-                <Button type="submit">Login</Button>
+                <Button type="submit">{loading ? <Spinner /> : "Login"}</Button>
                 {children}
               </Field>
             </FieldGroup>

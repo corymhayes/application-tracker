@@ -7,7 +7,18 @@ import { routeTree } from "./routeTree.gen.ts";
 // import App from "./app/App.tsx";
 import "./index.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 2,
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+      staleTime: 1000 * 60 * 5,
+    },
+    mutations: {
+      retry: 1,
+    },
+  },
+});
 
 const router = createRouter({
   routeTree,

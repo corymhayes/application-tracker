@@ -1,0 +1,53 @@
+.site-mark-container {
+  height: 5px;
+  width: 100%;
+  display: flex;
+  background-color: blue;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+
+  .one,
+  .two,
+  .three,
+  .four,
+  .five,
+  .six,
+  .seven,
+  .eight {
+    width: calc(100% / 8);
+  }
+
+  .one {
+    background: var(--color-blue-400);
+  }
+
+  .two {
+    background: var(--color-amber-400);
+  }
+
+  .three {
+    background: var(--color-pink-400);
+  }
+
+  .four {
+    background: var(--color-indigo-400);
+  }
+
+  .five {
+    background: var(--color-orange-400);
+  }
+
+  .six {
+    background: var(--color-green-400);
+  }
+
+  .seven {
+    background: var(--color-red-400);
+  }
+
+  .eight {
+    background: var(--color-purple-400);
+  }
+}

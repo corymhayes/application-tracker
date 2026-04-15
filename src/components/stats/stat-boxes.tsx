@@ -32,16 +32,21 @@ export function StatBoxes({
         )}
 
         {showChange ? (
-          lastMonth! > 0 ? (
+          lastMonth !== undefined && lastMonth > 0 ? (
             <p className="flex items-center gap-0.5">
               <ArrowUpIcon className="text-green-400" />
               <span className="text-green-400">{lastMonth}%</span>
               vs last month
             </p>
-          ) : lastMonth! < 0 ? (
+          ) : lastMonth !== undefined && lastMonth < 0 ? (
             <p className="flex items-center gap-0.5">
               <ArrowDownIcon className="text-red-400" />
               <span className="text-red-400">{lastMonth}%</span>
+              vs last month
+            </p>
+          ) : lastMonth === 0 ? (
+            <p className="flex items-center gap-0.5">
+              <span className="text-accent-foreground">{lastMonth}%</span>
               vs last month
             </p>
           ) : (

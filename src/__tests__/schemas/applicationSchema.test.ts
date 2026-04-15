@@ -3,7 +3,6 @@ import {
   applicationSchema,
   applicationFormSchema,
   applicationPayloadSchema,
-  type Application,
 } from "@/applicationSchema";
 
 describe("applicationSchema", () => {

@@ -16,13 +16,23 @@ export const api = {
       ...options.headers,
     };
 
-    const response = await fetch(`${endpoint}`, {
-      ...options,
-      headers,
-    });
+    try {
+      const response = await fetch(`${endpoint}`, {
+        ...options,
+        headers,
+      });
 
-    if (!response.ok) throw new Error("API Request Failed");
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}))
+        throw new Error(
+          error.message || `API Error: $response.status} ${response.statusText}`
+        );
+      }
 
-    return response.json();
+      return response.json();
+    } catch (err) {
+      console.error(`API request failed: ${endpoint}`, err)
+      throw err;
+    }
   },
 };

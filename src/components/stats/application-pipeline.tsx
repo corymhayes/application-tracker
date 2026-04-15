@@ -16,11 +16,11 @@ export function ApplicationPipeline({ status }: { status: Pipeline[] }) {
       <CardContent className="flex flex-col">
         <div className="w-full h-6 flex mt-2 mb-8">
           <ApplicationPipelineGraph
-            color="bg-yellow-400"
+            color="bg-blue-400"
             width={status[0].percentage}
           />
           <ApplicationPipelineGraph
-            color="bg-purple-400"
+            color="bg-yellow-400"
             width={status[1].percentage}
           />
           <ApplicationPipelineGraph
@@ -28,11 +28,11 @@ export function ApplicationPipeline({ status }: { status: Pipeline[] }) {
             width={status[2].percentage}
           />
           <ApplicationPipelineGraph
-            color="bg-blue-400"
+            color="bg-indigo-400"
             width={status[3].percentage}
           />
           <ApplicationPipelineGraph
-            color="bg-indigo-400"
+            color="bg-orange-400"
             width={status[4].percentage}
           />
           <ApplicationPipelineGraph
@@ -44,7 +44,7 @@ export function ApplicationPipeline({ status }: { status: Pipeline[] }) {
             width={status[6].percentage}
           />
           <ApplicationPipelineGraph
-            color="bg-zinc-400"
+            color="bg-purple-400"
             width={status[7].percentage}
           />
         </div>

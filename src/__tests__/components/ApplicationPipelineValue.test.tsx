@@ -34,18 +34,14 @@ describe("ApplicationPipelineValue", () => {
   });
 
   it("should render title with font-normal class", () => {
-    const { container } = render(
-      <ApplicationPipelineValue title="Status" value={10} />
-    );
+    render(<ApplicationPipelineValue title="Status" value={10} />);
 
     const title = screen.getByText("Status");
     expect(title).toHaveClass("font-normal");
   });
 
   it("should render value with font-semibold class", () => {
-    const { container } = render(
-      <ApplicationPipelineValue title="Count" value={25} />
-    );
+    render(<ApplicationPipelineValue title="Count" value={25} />);
 
     const value = screen.getByText("25");
     expect(value).toHaveClass("font-semibold");

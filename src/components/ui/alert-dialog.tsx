@@ -1,13 +1,15 @@
-import * as React from "react";
-import { AlertDialog as AlertDialogPrimitive } from "radix-ui";
+"use client"
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import * as React from "react"
+import { AlertDialog as AlertDialogPrimitive } from "radix-ui"
+
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 
 function AlertDialog({
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Root>) {
-  return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />;
+  return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />
 }
 
 function AlertDialogTrigger({
@@ -15,7 +17,7 @@ function AlertDialogTrigger({
 }: React.ComponentProps<typeof AlertDialogPrimitive.Trigger>) {
   return (
     <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
-  );
+  )
 }
 
 function AlertDialogPortal({
@@ -23,7 +25,7 @@ function AlertDialogPortal({
 }: React.ComponentProps<typeof AlertDialogPrimitive.Portal>) {
   return (
     <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" {...props} />
-  );
+  )
 }
 
 function AlertDialogOverlay({
@@ -39,7 +41,7 @@ function AlertDialogOverlay({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function AlertDialogContent({
@@ -47,7 +49,7 @@ function AlertDialogContent({
   size = "default",
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Content> & {
-  size?: "default" | "sm";
+  size?: "default" | "sm"
 }) {
   return (
     <AlertDialogPortal>
@@ -56,13 +58,13 @@ function AlertDialogContent({
         data-slot="alert-dialog-content"
         data-size={size}
         className={cn(
-          "group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-none bg-background p-4 ring-1 ring-foreground/10 duration-100 outline-none data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=default]:sm:max-w-sm data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+          "group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-none bg-popover p-4 text-popover-foreground ring-1 ring-foreground/10 duration-100 outline-none data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=default]:sm:max-w-sm data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
           className
         )}
         {...props}
       />
     </AlertDialogPortal>
-  );
+  )
 }
 
 function AlertDialogHeader({
@@ -78,7 +80,7 @@ function AlertDialogHeader({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function AlertDialogFooter({
@@ -94,7 +96,7 @@ function AlertDialogFooter({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function AlertDialogMedia({
@@ -110,7 +112,7 @@ function AlertDialogMedia({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function AlertDialogTitle({
@@ -121,12 +123,12 @@ function AlertDialogTitle({
     <AlertDialogPrimitive.Title
       data-slot="alert-dialog-title"
       className={cn(
-        "text-sm font-medium sm:group-data-[size=default]/alert-dialog-content:group-has-data-[slot=alert-dialog-media]/alert-dialog-content:col-start-2",
+        "font-heading text-sm font-medium sm:group-data-[size=default]/alert-dialog-content:group-has-data-[slot=alert-dialog-media]/alert-dialog-content:col-start-2",
         className
       )}
       {...props}
     />
-  );
+  )
 }
 
 function AlertDialogDescription({
@@ -142,7 +144,7 @@ function AlertDialogDescription({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function AlertDialogAction({
@@ -160,7 +162,7 @@ function AlertDialogAction({
         {...props}
       />
     </Button>
-  );
+  )
 }
 
 function AlertDialogCancel({
@@ -178,7 +180,7 @@ function AlertDialogCancel({
         {...props}
       />
     </Button>
-  );
+  )
 }
 
 export {
@@ -194,4 +196,4 @@ export {
   AlertDialogPortal,
   AlertDialogTitle,
   AlertDialogTrigger,
-};
+}

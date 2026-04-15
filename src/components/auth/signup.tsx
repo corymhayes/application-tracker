@@ -13,6 +13,8 @@ import { Field, FieldGroup, FieldLabel, FieldSeparator } from "../ui/field";
 import { Input } from "../ui/input";
 import OneTime from "./one-time";
 import { toast } from "sonner";
+import { SiteMark } from "../branding/site-mark";
+import { Spinner } from "../ui/spinner";
 
 interface SignupProps {
   children?: ReactNode;
@@ -23,10 +25,13 @@ function Signup({ children }: SignupProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [openOneTime, setOpenOneTime] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async (e: FormEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    setLoading(true);
+
     const name = `${firstName} ${lastName}`;
 
     const { data } = await authClient.signUp.email({
@@ -54,8 +59,9 @@ function Signup({ children }: SignupProps) {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-96">
-      <Card>
+    <div className="flex flex-col gap-6 w-full items-center justify-center">
+      <SiteMark />
+      <Card className="bg-background ring-0 w-96">
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome!</CardTitle>
           <CardDescription>
@@ -75,7 +81,7 @@ function Signup({ children }: SignupProps) {
           </form>
           <form onSubmit={(e) => handleSignup(e)}>
             <FieldGroup>
-              <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
+              <FieldSeparator className="*:data-[slot=field-separator-content]:bg-background pt-0.5">
                 Or continue with
               </FieldSeparator>
               <div className="flex gap-4">
@@ -118,7 +124,9 @@ function Signup({ children }: SignupProps) {
                 />
               </Field>
               <Field className="flex flex-col gap-4">
-                <Button type="submit">Sign up</Button>
+                <Button type="submit" className="mt-2">
+                  {loading ? <Spinner /> : "Sign up"}
+                </Button>
                 {children}
               </Field>
             </FieldGroup>
