@@ -1,11 +1,10 @@
 <p align="center">
-  <img src="../public/logo.png" width="200">
+  <img src="./public/logo.png" width="200">
 </p>
 
 <p align="center">
-  <img src="../public/screenshot.png">
+  <img src="./public/screenshot.png">
 </p>
-
 
 Track, organize, and manage your job applications through every stage of the hiring pipeline—all in one searchable, filterable dashboard.
 
@@ -23,7 +22,6 @@ Track, organize, and manage your job applications through every stage of the hir
 | Tech Stack | [Explore](#tech-stack) |
 | Quick Start | [Setup](#quick-start) |
 | API Reference | [Docs](#api-reference) |
-| Architecture | [Design](#architecture) |
 | Deployment | [Deploy](#deployment) |
 | Testing | [Test](#running-tests) |
 
