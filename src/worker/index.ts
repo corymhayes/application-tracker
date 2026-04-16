@@ -13,12 +13,15 @@ type AppVariables = { userId: string };
 
 const app = new Hono();
 
-if (!import.meta.env.VITE_NEON_AUTH_URL) {
-  console.error("URL not set")
+const neonAuthUrl = import.meta.env.VITE_NEON_AUTH_URL;
+if (!neonAuthUrl) {
+  throw new Error(
+    "VITE_NEON_AUTH_RUL is not set. Please configure it in wrangler.jsonc"
+  )
 }
 
 const JWKS = jose.createRemoteJWKSet(
-  new URL(`${import.meta.env.VITE_NEON_AUTH_URL}/.well-known/jwks.json`)
+  new URL(`${neonAuthUrl}/.well-known/jwks.json`)
 );
 
 const authMiddleware = async (
