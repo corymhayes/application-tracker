@@ -16,7 +16,7 @@ import {
 } from "../ui/dialog";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { Field, FieldGroup, FieldLabel } from "../ui/field";
-import { authClient } from "../../worker/auth";
+import { authClient } from "@/worker/auth";
 
 interface OneTimeProps {
   open: boolean;
@@ -45,14 +45,8 @@ export default function OneTime({ open, setOpen, email }: OneTimeProps) {
   };
 
   return (
-    <Dialog open={open} onOpenChange={() => setOpen(false)}>
-      {/*<DialogTrigger
-        type="button"
-        className="font-normal cursor-pointer decoration-foreground text-xs hover:underline"
-      >
-        Forgot your password?
-      </DialogTrigger>*/}
-      <DialogContent className="h-64 w-80">
+    <Dialog open={open}>
+      <DialogContent className="h-64 w-80" showCloseButton={false}>
         <DialogHeader>
           <DialogTitle>Verify your login</DialogTitle>
           <DialogDescription>

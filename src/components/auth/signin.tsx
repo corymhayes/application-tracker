@@ -1,8 +1,8 @@
 import { GithubLogoIcon } from "@phosphor-icons/react";
 import { useNavigate } from "@tanstack/react-router";
 import { type FormEvent, type ReactNode, useState } from "react";
-import { authClient } from "../../worker/auth";
-import { Button } from "../ui/button";
+import { authClient } from "@/worker/auth";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,

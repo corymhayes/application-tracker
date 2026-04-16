@@ -25,4 +25,11 @@
       "id": "YOUR_HYPERDRIVE_ID",
     },
   ],
+  "env": {
+    "production": {
+      "vars": {
+        "VITE_NEON_AUTH_URL": "<neon auth url>"
+      },
+    },
+  },
 }

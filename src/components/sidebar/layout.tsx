@@ -7,7 +7,6 @@ import { ApplicationForm } from "./application-form";
 import { UserInfo } from "./user-info";
 import type { Application } from "@/applicationSchema";
 import type { User } from "@/types/User";
-import { Logo } from "../branding/logo";
 
 interface SidebarLayoutProps {
   selectedApplication?: Application;
