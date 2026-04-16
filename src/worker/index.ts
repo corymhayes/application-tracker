@@ -13,10 +13,10 @@ type AppVariables = { userId: string };
 
 const app = new Hono();
 
-const neonAuthUrl = import.meta.env.VITE_NEON_AUTH_URL;
+const neonAuthUrl = process.env.VITE_NEON_AUTH_URL;
 if (!neonAuthUrl) {
   throw new Error(
-    "VITE_NEON_AUTH_RUL is not set. Please configure it in wrangler.jsonc"
+    "VITE_NEON_AUTH_URL is not set. Please configure it in wrangler.jsonc"
   )
 }
 
