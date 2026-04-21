@@ -3,7 +3,6 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarRail,
 } from "@/components/ui/sidebar";
 import { ApplicationForm } from "./application-form";
 import { UserInfo } from "./user-info";
@@ -15,7 +14,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Kbd } from "@/components/ui/kbd";
 
 interface SidebarLayoutProps {
   selectedApplication?: Application;
@@ -65,10 +63,3 @@ export function SidebarLayout({
     </>
   );
 }
-
-// <button
-//   type="button"
-//   className="ml-3 -mr-7 self-end my-5"
-//   onClick={toggleSidebar}
-// >
-// </button>

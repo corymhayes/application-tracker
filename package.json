@@ -83,7 +83,8 @@
     "test:coverage": "vitest --coverage",
     "db:generate": "pnmp drizzle-kit generate",
     "db:migrate": "pnpm drizzle-kit migrate",
-    "db:push": "pnpm drizzle-kit push"
+    "db:push": "pnpm drizzle-kit push",
+    "cf:deploy": "tsc -b && vite build && wrangler deploy"
   },
   "type": "module"
 }
