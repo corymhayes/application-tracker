@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { ApplicationPipelineValue } from "@/components/stats/application-pipeline-value";
+import { ApplicationPipelineValue } from "@/components/dashboard/stats/application-pipeline-value";
 
 describe("ApplicationPipelineValue", () => {
   it("should render with correct title and value", () => {

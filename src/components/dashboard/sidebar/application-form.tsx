@@ -15,7 +15,7 @@ import {
 } from "@/applicationSchema";
 import { api } from "@/lib/api";
 import { formatISODate } from "@/lib/formatISODate";
-import { invalidateApplicationQueries } from "../../lib/query-factory";
+import { invalidateApplicationQueries } from "../../../lib/query-factory";
 
 interface ApplicationFormProps {
   application?: Application;

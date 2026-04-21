@@ -4,7 +4,6 @@ import {
   SidebarContent,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import { ApplicationForm } from "./application-form";
 import { UserInfo } from "./user-info";
 import type { Application } from "@/applicationSchema";
 import type { User } from "@/types/User";
@@ -14,6 +13,12 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { lazy, Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const ApplicationForm = lazy(() =>
+  import("./application-form").then((m) => ({ default: m.ApplicationForm }))
+);
 
 interface SidebarLayoutProps {
   selectedApplication?: Application;
@@ -35,11 +40,13 @@ export function SidebarLayout({
           <img src="logo-alt.png" className="w-32" alt="job journal logo" />
         </div>
         <SidebarContent className="p-6">
-          <ApplicationForm
-            key={selectedApplication?.id ?? "new"}
-            application={selectedApplication}
-            onClearSelection={onClearSelection}
-          />
+          <Suspense fallback={<Skeleton className="h-96 w-full rounded-md" />}>
+            <ApplicationForm
+              key={selectedApplication?.id ?? "new"}
+              application={selectedApplication}
+              onClearSelection={onClearSelection}
+            />
+          </Suspense>
         </SidebarContent>
         <SidebarFooter className="flex flex-row justify-between items-center py-4 border-t">
           {userData && <UserInfo userData={userData} />}

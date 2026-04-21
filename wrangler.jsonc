@@ -3,7 +3,6 @@
   // This is the source of truth for production environment variables and bindings
 
   "name": "jobjournal",
-  "type": "service",
   "main": "src/worker/index.ts",
   "compatibility_date": "2026-03-19",
   "compatibility_flags": [

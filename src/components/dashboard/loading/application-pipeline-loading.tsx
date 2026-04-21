@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ApplicationPipelineValueLoading } from "./application-pipeline-value-loading";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function ApplicationPipelineLoading() {
   return (

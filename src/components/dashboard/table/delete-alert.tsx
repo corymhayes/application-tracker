@@ -10,12 +10,12 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu } from "../ui/dropdown-menu";
+import { DropdownMenu } from "../../ui/dropdown-menu";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { TrashSimpleIcon } from "@phosphor-icons/react";
-import { api } from "../../lib/api";
+import { api } from "../../../lib/api";
 import { invalidateApplicationQueries } from "@/lib/query-factory";
 
 interface DeleteAlertProps {

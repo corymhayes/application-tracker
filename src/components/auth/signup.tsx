@@ -35,11 +35,13 @@ function Signup({ children }: SignupProps) {
     try {
       const name = `${firstName} ${lastName}`;
 
-      const { data } = await authClient.signUp.email({
+      const { data, error } = await authClient.signUp.email({
         email,
         password,
         name,
       });
+
+      console.log(error);
 
       if (data?.user) {
         setOpenOneTime(true);

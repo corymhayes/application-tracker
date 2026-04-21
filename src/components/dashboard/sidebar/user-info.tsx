@@ -1,14 +1,14 @@
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 import { authClient } from "@/worker/auth";
-import { ModeToggle } from "../theme-toggle";
+import { ModeToggle } from "../../theme-toggle";
 import { useNavigate } from "@tanstack/react-router";
-import type { User } from "../../types/User";
+import type { User } from "../../../types/User";
 import type { FormEvent } from "react";
 import { DotsThreeVerticalIcon } from "@phosphor-icons/react";
 import { toast } from "sonner";
