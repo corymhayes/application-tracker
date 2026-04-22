@@ -7,8 +7,6 @@ import {
   FileTextIcon,
   SpinnerBallIcon,
 } from "@phosphor-icons/react";
-import { StatsLoading } from "../loading";
-import { LoadingTable } from "../loading/table";
 import type { Pipeline } from "@/types/Pipeline";
 
 const ApplicationPipeline = lazy(() =>
