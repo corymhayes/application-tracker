@@ -87,13 +87,13 @@ export default function AppContent() {
           <SidebarProvider
             style={
               {
-                "--sidebar-width": "16rem",
-                "--sidebar-width-mobile": "20rem",
+                "--sidebar-width": "18rem",
+                "--sidebar-width-mobile": "18rem",
               } as CSSProperties
             }
             className="flex items-center justify-center"
           >
-            <Suspense fallback={<StatsLoading />}>
+            <Suspense>
               <SidebarLayout
                 selectedApplication={selectedApplication}
                 onClearSelection={handleClearSelection}

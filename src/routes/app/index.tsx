@@ -3,7 +3,7 @@ import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { authClient } from "@/worker/auth";
 import { lazy, Suspense } from "react";
-import { DashboardSkeleton } from "@/components/dashboard/loading/dashboard-loading";
+import { DashboardLoading } from "@/components/dashboard/loading/dashboard-loading";
 
 const AppContent = lazy(() =>
   import("./-AppContent").then((m) => ({ default: m.default }))
@@ -27,7 +27,7 @@ export default function App() {
     <ErrorBoundary>
       <QueryErrorResetBoundary>
         {() => (
-          <Suspense fallback={<DashboardSkeleton />}>
+          <Suspense fallback={<DashboardLoading />}>
             <AppContent />
           </Suspense>
         )}

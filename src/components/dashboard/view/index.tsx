@@ -8,7 +8,7 @@ import {
   SpinnerBallIcon,
 } from "@phosphor-icons/react";
 import { StatsLoading } from "../loading";
-import { LoadingTable } from "../loading/loading";
+import { LoadingTable } from "../loading/table";
 import type { Pipeline } from "@/types/Pipeline";
 
 const ApplicationPipeline = lazy(() =>
@@ -83,10 +83,10 @@ export default function DashboardView({
           <FileTextIcon size={16} weight="fill" />
         </StatBoxes>
       </div>
-      <Suspense fallback={<StatsLoading />}>
+      <Suspense>
         <ApplicationPipeline status={stats.pipeline} />
       </Suspense>
-      <Suspense fallback={<LoadingTable loadingState="loading" />}>
+      <Suspense>
         <TablePage applications={data} onEdit={handleEdit} />
       </Suspense>
     </div>

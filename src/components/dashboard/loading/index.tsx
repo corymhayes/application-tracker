@@ -1,5 +1,5 @@
 import { ApplicationPipelineLoading } from "./application-pipeline-loading";
-import { LoadingTable } from "./loading";
+import { LoadingTable } from "./table";
 import { StatLoading } from "./stat-loading";
 import {
   CalendarDotsIcon,

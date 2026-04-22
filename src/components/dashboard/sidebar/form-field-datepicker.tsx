@@ -22,7 +22,7 @@ export function FormFieldDatePicker({ label }: { label: string }) {
           <Button
             variant="secondary"
             id={field.name}
-            className="justify-start font-normal w-60 gap-2"
+            className="justify-start font-normal w-60 gap-2 border-input"
           >
             <CalendarIcon />
             {field.state.value ? format(field.state.value, "PPP") : <></>}
